@@ -1,5 +1,10 @@
 <h1> Welcome to instagram</h1>
 
+<!--<%= image_tag("mobile.jpg", :alt => "rss feed") %> -->
+<div class="container logo">
+ <%= image_tag("black.jpg", :alt => "rss feed", :class => "img") %>
+</div>
+
 <% if user_signed_in? %>
   <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
  <% else %>
