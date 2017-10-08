@@ -11,22 +11,18 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= form.hidden_field :image, value: @photo.cached_image_data if defined?(@photo.cached_image_data)%>
-    <%= form.file_field :image %>
-  </div>
+    <div class="form-group">
 
-  <!-- <div class="form-group">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id, id: :photo_user_id %>
-  </div> -->
+     <%= form.hidden_field :image, value: @photo.cached_image_data if defined?(@photo.cached_image_data) %>
+     <%= form.file_field :image %>
+  </div>
 
   <div class="form-group">
     <%= form.label :caption %>
     <%= form.text_field :caption, id: :photo_caption %>
   </div>
 
-  <div class="actions">
+  <div class="form-group">
     <%= form.submit %>
   </div>
 <% end %>

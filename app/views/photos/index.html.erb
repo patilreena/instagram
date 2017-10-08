@@ -5,7 +5,7 @@
 <table>
   <thead>
     <tr>
-      <th>Image data</th>
+      <th>Image</th>
       <th>User</th>
       <th>Caption</th>
       <th colspan="3"></th>
@@ -15,13 +15,27 @@
   <tbody>
     <% @photos.each do |photo| %>
       <tr>
-        <td><%= photo.image_data %> <img src="<%= @photo.image_url %>"></td>
-        <td><%= photo.user %></td>
+        <td> <img src="<%= photo.image_url %>"> </td>
+        <td><%= photo.user_id%></td>
         <td><%= photo.caption %></td>
+        <td>
+          <%= link_to like_photo_path(photo), method: :put do %>
+            Like
+            <%= photo.get_upvotes.size %>
+          <% end %>
+
+          <%= link_to dislike_photo_path(photo), method: :put do %>
+          Dislike
+            <%= photo.get_downvotes.size %>
+          <% end %>
+        </td>
         <td><%= link_to 'Show', photo %></td>
         <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
         <td><%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
+      <% if @photos.blank? %>
+        <h4>There are no photos containing the term <%= params[:search] %>.</h4>
+      <% end %>
     <% end %>
   </tbody>
 </table>
@@ -29,5 +43,5 @@
 <br>
 
 <% if user_signed_in? %>
-  <%= link_to 'New Photo', new_photo_path %>
+  <%= link_to 'New Photo', new_photo_path, class: "btn btn-success btn-lg" %>
 <% end %>

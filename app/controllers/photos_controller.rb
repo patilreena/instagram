@@ -1,11 +1,16 @@
 class PhotosController < ApplicationController
-  before_action :set_photo, only: [:show, :edit, :update, :destroy]
+  before_action :set_photo, only: [:show, :edit, :update, :destroy, :search]
 
   # GET /photos
   # GET /photos.json
   def index
-    @photos = Photo.all
+  @photos = Photo.all
+  if params[:search]
+    @photos = Photo.search(params[:search]).order("created_at DESC")
+  else
+    @photos = Photo.all.order("created_at DESC")
   end
+end
 
   # GET /photos/1
   # GET /photos/1.json
@@ -21,12 +26,25 @@ class PhotosController < ApplicationController
   def edit
   end
 
+  def upvote 
+    @link = Photo.find(params[:id])
+    @link.upvote_by current_user
+    redirect_back fallback_location: root_path
+  end  
+
+def downvote
+  @link = Photo.find(params[:id])
+  @link.downvote_by current_user
+  redirect_back fallback_location: root_path
+end
+
   # POST /photos
   # POST /photos.json
   def create
     @photo = Photo.new(photo_params)
 
     respond_to do |format|
+        @photo.user_id = current_user.id;
       if @photo.save
         format.html { redirect_to @photo, notice: 'Photo was successfully created.' }
         format.json { render :show, status: :created, location: @photo }
@@ -69,6 +87,6 @@ class PhotosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
-      params.require(:photo).permit(:image_data, :user_id, :caption)
+      params.require(:photo).permit(:image_data, :user_id, :caption, :image)
     end
 end
