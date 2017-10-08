@@ -15,21 +15,9 @@
   <tbody>
     <% @photos.each do |photo| %>
       <tr>
-        <td><%= photo.image_data %> <!-- <img src="<%= photo.image_url %>"> --> </td>
+        <td><%= photo.image_data %> <img src="<%= @photo.image_url %>"></td>
         <td><%= photo.user %></td>
         <td><%= photo.caption %></td>
-        <td>
-          <%= link_to like_photo_path(photo), method: :put do %>
-            Upvote
-            <%= photo.get_upvotes.size %>
-          <% end %>
-        </td>
-        <td>
-          <%= link_to dislike_photo_path(photo), method: :put do %>
-            Downvote
-            <%= photo.get_downvotes.size %>
-          <% end %>
-        </td>
         <td><%= link_to 'Show', photo %></td>
         <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
         <td><%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -40,4 +28,6 @@
 
 <br>
 
-<%= link_to 'New Photo', new_photo_path %>
+<% if user_signed_in? %>
+  <%= link_to 'New Photo', new_photo_path %>
+<% end %>
