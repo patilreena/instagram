@@ -20,12 +20,12 @@
         <td><%= photo.caption %></td>
         <td>
           <%= link_to like_photo_path(photo), method: :put do %>
-            Like
+            <i class="fa fa-thumbs-up"></i>
             <%= photo.get_upvotes.size %>
           <% end %>
 
           <%= link_to dislike_photo_path(photo), method: :put do %>
-          Dislike
+          <i class="fa fa-thumbs-down"></i>
             <%= photo.get_downvotes.size %>
           <% end %>
         </td>

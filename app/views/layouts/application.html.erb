@@ -38,16 +38,9 @@
     </nav>
  
     <div class="container details">
-      <div class="row">
-        <div class="col">
-       <%= image_tag("girl.jpg", :class =>"banner") %>
-        </div>
-        <div class="col">
-         <p class="notice"><%= notice %></p>
-          <p class="alert"><%= alert %></p>
-          <%= yield %>
-        </div>
-      </div>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      <%= yield %>
     </div>
 
   </body>
