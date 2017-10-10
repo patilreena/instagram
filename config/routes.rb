@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  # root 'posts/new'
+
+  # root 'posts#index'
+
+  resources :posts
+
   devise_for :users
   root 'home#index'
 

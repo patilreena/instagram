@@ -6,7 +6,7 @@
   <thead>
     <tr>
       <th>Image</th>
-      <th>User</th>
+     <!-- <th>User</th> -->
       <th>Caption</th>
       <th colspan="3"></th>
     </tr>
@@ -16,7 +16,7 @@
     <% @photos.each do |photo| %>
       <tr>
         <td> <img src="<%= photo.image_url %>"> </td>
-        <td><%= photo.user_id%></td>
+         <!-- <td><%= photo.user_id%></td>  -->
         <td><%= photo.caption %></td>
         <td>
           <%= link_to like_photo_path(photo), method: :put do %>
