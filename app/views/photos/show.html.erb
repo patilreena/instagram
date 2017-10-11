@@ -2,7 +2,7 @@
 <p>
   <strong>Image data:</strong>
   <img src="<%= @photo.image_url %>">
-  <%= @photo.image_data %>
+ 
 </p>
 <p>
   <strong>User:</strong>
@@ -16,6 +16,33 @@
   <strong>Img:</strong>
   <%= @photo.image %>
 </p>
+
+
+
+<h3>Comments</h3>
+<% if @photo.comments.any? %>
+<ul>
+  <% @photo.comments.each do |comment| %>
+  <li>
+  <%= comment.body %>
+  <%= link_to 'x',
+  photo_comment_path(@photo,comment),
+  method: :delete,
+  class:'command',
+  data:{confirm: 'Are you sure?'}%>
+</li>
+<% end %>
+</ul>
+<% end %>
+
+<%= form_for([@photo,@photo.comments.build]) do |f| %>
+<p>
+  <%= f.text_field :body %>
+</p>
+<p>
+  <% f.submit %>
+</p>
+<% end %>
 <% if user_signed_in? && @photo.user == current_user %>
 <%= link_to 'Edit', edit_photo_path(@photo) %> |
 <%= link_to 'Back', photos_path %>

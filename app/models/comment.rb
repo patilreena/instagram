@@ -1,5 +1,3 @@
-class Comment ActiveRecord::Base
-	belongs_to :user
-	belongs_to :photo
-	has_many :comments
+class Comment < ApplicationRecord
+  belongs_to :photo 
 end

@@ -15,7 +15,7 @@ end
   # GET /photos/1
   # GET /photos/1.json
   def show
-    @photo = Photo.find_by_id(params[:id])
+    @photo = Photo.find(params[:id])
   end
 
   # GET /photos/new
@@ -47,9 +47,11 @@ end
     respond_to do |format|
         @photo.user_id = current_user.id;
       if @photo.save
+        format.any
         format.html { redirect_to @photo, notice: 'Photo was successfully created.' }
         format.json { render :show, status: :created, location: @photo }
       else
+        
         format.html { render :new }
         format.json { render json: @photo.errors, status: :unprocessable_entity }
       end
@@ -88,7 +90,7 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
-      params.require(:photo).permit(:image_data, :user_id, :caption, :image)
+      params.require(:photo).permit(:image_data, :user_id, :caption, :image, :body)
     end
 end
 
