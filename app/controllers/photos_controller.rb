@@ -15,6 +15,7 @@ end
   # GET /photos/1
   # GET /photos/1.json
   def show
+    @photo = Photo.find_by_id(params[:id])
   end
 
   # GET /photos/new
@@ -82,7 +83,7 @@ end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_photo
-      @photo = Photo.find(params[:id])
+      @photo = Photo.find_by_id(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -90,3 +91,6 @@ end
       params.require(:photo).permit(:image_data, :user_id, :caption, :image)
     end
 end
+
+
+
