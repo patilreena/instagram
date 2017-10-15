@@ -10,7 +10,7 @@ class PhotosController < ApplicationController
   else
     @photos = Photo.all.order("created_at DESC")
   end
-end
+  end
 
   # GET /photos/1
   # GET /photos/1.json
@@ -27,11 +27,11 @@ end
   def edit
   end
 
-  def upvote 
+  def upvote
     @link = Photo.find(params[:id])
     @link.upvote_by current_user
     redirect_back fallback_location: root_path
-  end  
+  end
 
 def downvote
   @link = Photo.find(params[:id])
@@ -51,7 +51,7 @@ end
         format.html { redirect_to @photo, notice: 'Photo was successfully created.' }
         format.json { render :show, status: :created, location: @photo }
       else
-        
+
         format.html { render :new }
         format.json { render json: @photo.errors, status: :unprocessable_entity }
       end
@@ -93,6 +93,3 @@ end
       params.require(:photo).permit(:image_data, :user_id, :caption, :image, :body)
     end
 end
-
-
-
