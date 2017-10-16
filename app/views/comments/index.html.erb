@@ -1,28 +1,30 @@
-<!-- <h1>photo comments</h1>
-<%= image_tag @photo.image_url, width: 100 %>
-<%= @comments.each do |comment|  %>
-<li><%= comment.content %></li>
-<% end %> 
+<h1>Listing comments</h1>
 
-<%= form_width(model: [@photo, @comment], local: true) do |form| %>
+<table>
+  <tr>
+    <th>Commenter</th>
+    <th>Body</th>
+    <th>Post</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
 
- <% if @comment.errors.any? %>
-  <div id="error_explanation">
-  	<h2><%= pluralize(comment.errors.count, "error") %> prohibited this photo from being saved:</h2>
+<% @comments.each do |comment| %>
+  <tr>
+    <td><%= comment.commenter %> </td>
+    <td><%= comment.body %></td>
 
-      <ul>
-      <% comment.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-   
-  <div class="form-group">
-	  <%= form.label :content %>
-	  <%= form.text_area :content, class: 'form-control' %>
-  </div>
-  <div class="action form-group">
-    <%= form.submit class: 'btn btn-primary' %>
-  </div>
-<% end %> -->
+    <!-- /photos/:photo_id/comments/:id -->
+    <td><%= link_to 'Show', [comment.photo, comment] %></td>
+    <!-- /photos/:photo_id/comments/:id/edit -->
+    <td><%= link_to 'Edit', edit_photo_comment_path(comment.photo, comment)%></td>
+    <!-- /photos/:photo_id/comments/:id -->
+    <td><%= link_to 'Destroy', [comment.photo, comment], :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Comment', new_photo_comment_path %> 
