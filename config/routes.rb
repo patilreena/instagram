@@ -10,6 +10,9 @@ Rails.application.routes.draw do
     registrations: "users/registrations"
   }
 
+  resources :users, only: [:show, :update], controller: :profiles
+  resource :profile
+
   resources :photos do
      resources :comments
   	member do
