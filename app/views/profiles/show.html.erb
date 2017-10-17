@@ -1,15 +1,4 @@
-<!-- <p>
-  <strong>Avatar data:</strong>
- 
-</p>  -->
-
-<!-- <p>
-  <strong>Username:</strong>
-  <%= @profile.username %>
-</p> -->
-<%#= @profile.avatar_url %>
-<%#= @profile.inspect %>
-  <img src="<%= @profile.avatar_url %>">
+<img src="<%= @profile.avatar_url %>">
 
 <p>
   <strong>First name:</strong>
@@ -26,10 +15,17 @@
   <%= @profile.bio %>
 </p>
 
-<!-- <p>
-  <strong>User:</strong>
-  <%= @profile.user %>
-</p> -->
 
-<%= link_to 'Edit', edit_profile_path(@profile) %> |
-<%= link_to 'Back', profile_path %>
+
+<% if @profile.user == current_user %>
+    <%= link_to 'Edit', edit_profile_path(@profile) %>
+  <% else %>
+    <%= form_with(model: @profile.user, method: :patch) do |form| %>
+      
+      <%= form.hidden_field :toggle_follow, value: true %>
+      <%= form.button @profile.user.followers_exists?(current_user) ? 'Unfollow' : 'Follow',
+        class: 'btn btn-success' %>
+    <% end %>
+  <% end %>                                   
+
+

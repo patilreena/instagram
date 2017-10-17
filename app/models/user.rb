@@ -1,16 +1,26 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  # mount_uploader :avatar, AvatarUploader
-  
+ 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-	# Setup accessible (or protected) attributes for your model
-  # attr_accessor :email, :password, :remember_me, :avatar, :avatar_cache, :remove_avatar
 
-  # validates_presence_of   :avatar
-  # validates_integrity_of  :avatar
-  # validates_processing_of :avatar
+  has_one :profile
+  has_many :photos
+
+  has_and_belongs_to_many :followers, class_name: 'User', join_table: :followers,
+    foreign_key: :followed_id, association_foreign_key: :follower_id
+  
+  has_and_belongs_to_many :following, class_name: 'User', join_table: :followers,
+    foreign_key: :follower_id, association_foreign_key: :followed_id
+
+
+    def toggle_followed_by(user)
+      if followers.exists?(user.id)
+      followers.destroy(user)
+    else
+      followers << user
+    end
+  end
+
 
 end

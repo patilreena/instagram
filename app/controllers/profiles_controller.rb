@@ -10,8 +10,6 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.json
   def show
-    # puts "----edit_profile_url is: #{edit_profile_url}"
-    # puts "----@profile is: #{@profile.inspect}"
     redirect_to edit_profile_url if @profile.nil?
   end
 
@@ -30,7 +28,7 @@ class ProfilesController < ApplicationController
   # POST /profiles.json
   def create
     @profile = Profile.new(profile_params)
-    @profile.user = current_user
+      @profile.user = current_user
 
     respond_to do |format|
       if @profile.save
@@ -47,11 +45,12 @@ class ProfilesController < ApplicationController
   # PATCH/PUT /profiles/1.json
   def update
     respond_to do |format|
-
-      puts "profile_params: #{profile_params.inspect}"
-      
-
-      if @profile.update(profile_params)
+      if performing_follow?
+        @profile.user.toggle_followed_by(current_user)
+        
+        # format.html { redirect_to @profile.user }
+        # format.json { render :show, status: :ok, location: @profile }
+      elsif @profile.update(profile_params)
         format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
         format.json { render :show, status: :ok, location: @profile }
       else
