@@ -3,22 +3,20 @@
 <h1>Photos</h1>
 
 <table>
-  <thead>
+  <!-- <thead>
     <tr>
       <th>Image</th>
-     <!-- <th>User</th> -->
+     <th>User</th>
       <th>Caption</th>
       <th colspan="3"></th>
     </tr>
-  </thead>
+  </thead>  -->
 
-  <tbody>
+  <!-- <tbody>
     <% @photos.each do |photo| %>
       <tr>
-        <td> <img src="<%= photo.image_url %>"> </td>
-         <!-- <td><%= photo.user_id%></td>  -->
-        <td><%= photo.caption %></td>
-        <td>
+        <td> <img src="<%= photo.image_url %>"> 
+          <%= photo.caption %>
           <%= link_to like_photo_path(photo), method: :put do %>
             <i class="fa fa-thumbs-up"></i>
             <%= photo.get_upvotes.size %>
@@ -38,9 +36,28 @@
       <% end %>
     <% end %>
   </tbody>
-</table>
+</table> -->
 
-<br>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <% @photos.each do |photo| %>
+        <div class="block mb-5">
+          <img src="<%= photo.image_url %>" class="img-fluid block">
+          <p>
+                      <%= link_to like_photo_path(photo), method: :put do %>
+            <i class="fa fa-thumbs-up"></i>
+            <%= photo.get_upvotes.size %>
+          <% end %>
+          <%= link_to 'Show', photo %>
+          </p>
+          <p>
+            <%= photo.caption %>
+          </p>
+        </div>
+      <% end %> 
+    </div>
+  </div>
 
 <% if user_signed_in? %>
   <%= link_to 'New Photo', new_photo_path, class: "btn btn-success btn-lg" %>
