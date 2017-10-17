@@ -48,8 +48,8 @@ class ProfilesController < ApplicationController
       if performing_follow?
         @profile.user.toggle_followed_by(current_user)
         
-        # format.html { redirect_to @profile.user }
-        # format.json { render :show, status: :ok, location: @profile }
+         format.html { redirect_to @profile.user }
+         format.json { render :show, status: :ok, location: @profile }
       elsif @profile.update(profile_params)
         format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
         format.json { render :show, status: :ok, location: @profile }
@@ -79,5 +79,9 @@ class ProfilesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
       params.require(:profile).permit(:avatar_data, :username, :first_name, :last_name, :bio, :user_id, :avatar)
+    end
+
+    def performing_follow?
+      params.require(:user)[:toggle_follow].present?
     end
 end
