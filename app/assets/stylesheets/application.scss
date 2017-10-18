@@ -17,6 +17,12 @@
 @import "bootstrap";
 @import "font-awesome-sprockets";
 @import "font-awesome";
+@import url('https://fonts.googleapis.com/css?family=Lobster');
+
+
+body {
+	/*font-family: 'Lobster', cursive; */
+}
 
 .logo {
 	width: 50px;
@@ -32,4 +38,7 @@
 	display: block;
 	text-align: center;
 	margin: 0 auto;
+}
+.top-heading {
+   font-family: 'Lobster', cursive;
 }
